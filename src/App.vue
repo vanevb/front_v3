@@ -13,23 +13,23 @@
           alt="ADD_BOOk"
           style="width: 42px; height: 42px" /></router-link
       >|
-      <a href="add"
+      <router-link to="/add"
         ><img
           src="https://cdn-icons-png.flaticon.com/512/992/992651.png"
           alt="ADD_BOOk"
-          style="width: 42px; height: 42px" /></a
+          style="width: 42px; height: 42px" /></router-link
       >|
-      <a href="cart"
+      <router-link to="/cart"
         ><img
           src="https://cdn-icons-png.flaticon.com/512/833/833314.png"
           alt="ADD_BOOk"
-          style="width: 42px; height: 42px" /></a
+          style="width: 42px; height: 42px" /></router-link
       >|
-      <a href="index"
+      <router-link to="/index"
         ><img
           src="https://cdn-icons-png.flaticon.com/512/864/864685.png"
           alt="ADD_BOOk"
-          style="width: 42px; height: 42px" /></a
+          style="width: 42px; height: 42px" /></router-link
       >|
     </p>
     <router-view></router-view>

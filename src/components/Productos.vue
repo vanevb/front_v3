@@ -2,11 +2,11 @@
     <div>
         <b-container>
             <b-row>
-                <b-col cols="3" v-for="(book,index) in books" :key="index">
+                <b-col cols="3" v-for="(book,index) in librossBybook.Libros" :key="index">
                     <b-card
                         img-height="400"
                         img-width="150"
-                        :title=book.name
+                        :title=book.titulo
                         :img-src="require(`@/assets/Libros/Libro${index+1}.jpg`)"
                         img-alt="Image"
                         img-top
@@ -15,7 +15,7 @@
                     >
 
                     <b-card-text>
-                        <h5>Price: ${{book.price}}.00</h5>
+                        <h5>Price: ${{book.precio}}.00</h5>
                         <b-icon variant="warning" class="h1" icon="star-fill"></b-icon>
                         <b-icon variant="warning" class="h1" icon="star-fill"></b-icon>
                         <b-icon variant="warning" class="h1" icon="star-fill"></b-icon>
@@ -40,69 +40,77 @@
 
 <script>
 export default {
+    apollo: {
+        librossBybook: {
+            query: require('@/graphql/librosbybook.gql')
+        }      
+    },
     data(){
         return{
-            books:[
-                {
-                    id:1,
-                    name:"Cien años de soledad",
-                    auth: "Gabriel García Marquez",
-                    price:10000,
-                    img: '@/assets/Libros/Libro1.jpg',
-                    cart: false,
-                    quantity:1
-                },
+            librossBybook: {
+                Libros: []
+            }         
+            // books:[
+            //     {
+            //         id:1,
+            //         name:"Cien años de soledad",
+            //         auth: "Gabriel García Marquez",
+            //         price:10000,
+            //         img: '@/assets/Libros/Libro1.jpg',
+            //         cart: false,
+            //         quantity:1
+            //     },
 
-                {
-                    id:2,
-                    name:"El olvido que seremos",
-                    auth: "Héctor Abad",                
-                    price:10000,
-                    img: '@/assets/Libros/Libro2.jpg',
-                    cart: false,
-                    quantity:1
-                },
+            //     {
+            //         id:2,
+            //         name:"El olvido que seremos",
+            //         auth: "Héctor Abad",                
+            //         price:10000,
+            //         img: '@/assets/Libros/Libro2.jpg',
+            //         cart: false,
+            //         quantity:1
+            //     },
 
-                {
-                    id:3,
-                    name:"Así habló Zaratrusta",
-                    auth: "Friederich Nietzche",
-                    price:500000,
-                    img: '@/assets/Libros/Libro3.jpg',
-                    cart: false,
-                    quantity:1
-                },
+            //     {
+            //         id:3,
+            //         name:"Así habló Zaratrusta",
+            //         auth: "Friederich Nietzche",
+            //         price:500000,
+            //         img: '@/assets/Libros/Libro3.jpg',
+            //         cart: false,
+            //         quantity:1
+            //     },
 
-                {
-                    id:4,
-                    name:"Orgullo y prejuicio",                    
-                    auth: "Jane Austen",
-                    price:10000,
-                    img: '@/assets/Libros/Libro4.jpg',
-                    cart: false,
-                    quantity:1
-                },
+            //     {
+            //         id:4,
+            //         name:"Orgullo y prejuicio",                    
+            //         auth: "Jane Austen",
+            //         price:10000,
+            //         img: '@/assets/Libros/Libro4.jpg',
+            //         cart: false,
+            //         quantity:1
+            //     },
 
-                {
-                    id:5,
-                    name:"La agonía de una flor",                     
-                    auth: "Fernando Soto Aparicio",
-                    price:10000,
-                    img: '@/assets/Libros/Libro5.jpg',
-                    cart: false,
-                    quantity:1
-                },
+            //     {
+            //         id:5,
+            //         name:"La agonía de una flor",                     
+            //         auth: "Fernando Soto Aparicio",
+            //         price:10000,
+            //         img: '@/assets/Libros/Libro5.jpg',
+            //         cart: false,
+            //         quantity:1
+            //     },
 
-                {
-                    id:6,
-                    name:"Nombres y figuras",                    
-                    auth: "Alejandra Pizarnik",
-                    price:10000,
-                    img: '@/assets/Libros/Libro6.jpg',
-                    cart: false,
-                    quantity:1
-                }
-            ]
+            //     {
+            //         id:6,
+            //         name:"Nombres y figuras",                    
+            //         auth: "Alejandra Pizarnik",
+            //         price:10000,
+            //         img: '@/assets/Libros/Libro6.jpg',
+            //         cart: false,
+            //         quantity:1
+            //     }
+            // ]
         }
     },
 

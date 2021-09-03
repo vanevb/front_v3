@@ -1,0 +1,25 @@
+query librosbybook {
+  librossBybook {
+    Libros {
+      id
+      titulo
+      ano
+      descripcion
+      precio
+      cantidad
+      imagen
+      Author {
+        id
+        nombres
+      }
+      Category {
+        id
+        tipo
+      }
+      Editorial {
+        id
+        nombre
+      }
+    }
+  }
+}
