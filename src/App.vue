@@ -7,11 +7,11 @@
       </div>
     </div>
     <p class="button_panel">
-      <a href="Login"
+      <router-link to="/login"
         ><img
           src="https://cdn-icons-png.flaticon.com/512/747/747376.png"
           alt="ADD_BOOk"
-          style="width: 42px; height: 42px" /></a
+          style="width: 42px; height: 42px" /></router-link
       >|
       <a href="add"
         ><img
