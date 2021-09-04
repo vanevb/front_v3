@@ -1,7 +1,10 @@
-#import "./MessageFragment.gql"
-
-mutation addMessage ($input: MessageInput!) {
-  addMessage (input: $input) {
-    ...Message
+mutation signIn($loginUserLogin: UserLogin) {
+  loginUser(login: $loginUserLogin) {
+    loginUserLogin {
+      email
+      password
+   }
+    success
+    token
   }
 }
