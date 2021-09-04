@@ -1,0 +1,8 @@
+query Query {
+  categoriasBybook {
+    Categoria1 {
+      id
+      tipo
+    }
+  }
+}
