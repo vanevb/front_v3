@@ -8,5 +8,4 @@ fragment libros on libros  {
     AuthorId
     CategoryId
     EditorialId
-  }
 }

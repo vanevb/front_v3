@@ -1,4 +1,3 @@
-#import "./LibrosAdd.gql"
 mutation Mutation($registerLibrosLibros: LibrosInput) {
   registerLibros(libros: $registerLibrosLibros) {
     success

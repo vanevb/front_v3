@@ -3,36 +3,35 @@
         <div id="CreateFull" class="Login">        
         <div id="Create">
             <div class="Title"><h1></h1></div>
-            <form >     
+            <form  v-on:submit.prevent="RegisterUser" >     
                 <table class="adf">
                     <tr >           
                         <th><label class="coment" for="fuser">Título</label></th>
-                        <th><input type="text" placeholder="100 años de soledad" id="fuser" name="fuser" class="Campos"><br></th>
-                    </tr>
-                    <tr >           
-                        <th><label class="coment" for="fname">Autor</label></th>
-                        <th><input type="text" placeholder="Gabriel García Marquez" id="fname" name="fname" class="Campos"><br></th>
-                    </tr>
-                    <tr >           
-                        <th><label class="coment" for="flast">Género</label></th>
-                        <th><input type="text" placeholder="Novela" id="flast" name="flast" class="Campos"><br></th>
+                        <th><input v-model="bookin.titulo" type="text" placeholder="100 años de soledad" id="fuser" name="fuser" class="Campos"><br></th>
                     </tr>
                     <tr >           
                         <th><label class="coment" for="femail">Año de publicación</label></th>
-                        <th><input type="number" placeholder="1967" id="femail" name="femail" class="Campos"><br></th>
+                        <th><input v-model="bookin.ano" type="number" placeholder="1967" id="fano" name="femail" class="Campos"><br></th>
                     </tr>
                     <tr >           
-                        <th><label class="coment" for="frol">Editorial</label></th>
-                        <th><input type="text" placeholder="Oveja Negra" id="frol" name="frol" class="Campos"><br></th>
+                        <th><label class="coment" for="fcel">Descripción</label></th>
+                        <th><input v-model="bookin.descripcion" type="text" placeholder="[---]" id="fcdesc" name="fcel" class="Campos"><br></th>
                     </tr>
                     <tr >           
-                        <th><label class="coment" for="fcel">Sinopsis</label></th>
-                        <th><input type="text" placeholder="[---]" id="fcel" name="fcel" class="Campos"><br></th>
+                        <th><label class="coment" for="femail">Cantidad</label></th>
+                        <th><input v-model="bookin.cantidad" type="number" placeholder="2" id="fcant" name="femail" class="Campos"><br></th>
                     </tr>
-                    
+                    <tr >           
+                        <th><label class="coment" for="fcel">Precio</label></th>
+                        <th><input v-model="bookin.precio" type="number" placeholder="$1500" id="fcprice" name="fcel" class="Campos"><br></th>
+                    </tr>
+                    <tr >           
+                        <th><label class="coment" for="fcel">Imagen</label></th>
+                        <th><input v-model="bookin.imagen" type="text" placeholder="" id="fcimg" name="fcel" class="Campos"><br></th>
+                    </tr>
                 </table>
-                <button class="invert" type="button" id="Volver" v-on:click="Volver">Añadir</button>
-                <button class="invert" type="button" id="signIn" v-on:click="RegisterUser">Volver</button>
+                <button class="invert" type="submit" id="signIn" >Añadir</button>
+                <button class="invert" type="submit" id="Volver" v-on:click="RegisterUser">Volver</button>
                 
             </form>
             </div>         
@@ -48,46 +47,58 @@
 </template>
 
 <script>
-/*import axios from "axios";
+// import axios from "axios";
+import CreateBook from '../graphql/RegisterLibrosMutation.gql';
 export default {
     name: "Create",
     data: function(){
-        return{username: "none",
-                password: "none",
-                nombre: "none",
-                apellido: "none",
-                correo: "none",
-                celular: 0,
-                rol: "none"
-                }
+        return{
+            bookin:{
+                titulo:"",
+                ano:0,
+                descripcion:"",
+                precio:"",
+                cantidad:0,
+                imagen:"",
+                AuthorId:1,
+                CategoryId:1,
+                EditorialId:1
+            }
+
+        }
     },
 
     methods:{
-        RegisterUser: function(){
-            var datosJson = {
-                username: document.getElementById("fuser").value,
-                password: document.getElementById("fpass").value,
-                nombre: document.getElementById("fname").value,
-                apellido: document.getElementById("flast").value,
-                correo: document.getElementById("femail").value,
-                celular: document.getElementById("fcel").value,
-                rol: document.getElementById("frol").value
-            };
-            console.log(datosJson)
-            axios.post("https://expfiles-s3.herokuapp.com/user/createUser/",datosJson)
-                .then(response=> {
-                    alert("Creado con exito");
-                    })
-                .catch(error => {
-                    alert("ERROR Servidor");
-                    }); 
+        RegisterUser:async function(){
+            await this.$apollo.mutate({
+                mutation:CreateBook,
+                variables: {
+                    registerLibrosLibros: {
+                        titulo:this.bookin.titulo,
+                        ano:parseInt(this.bookin.ano),
+                        descripcion:this.bookin.descripcion,
+                        precio:parseInt(this.bookin.precio),
+                        cantidad:parseInt(this.bookin.cantidad),
+                        imagen:this.bookin.imagen,
+                        AuthorId:this.bookin.AuthorId,
+                        CategoryId:this.bookin.CategoryId,
+                        EditorialId:this.bookin.EditorialId
+                    }
+                }
+            }).then((result) => {
+                console.log(result)
+                alert("Libro creado correctamente");
+                this.$router.push({ name: 'index' })
+            }).catch((error) => {
+                alert(error);
+            });
         },
 
         Volver: function(){
             this.$router.push({name:"login"})
         }
     }
-}*/
+}
 </script>
 
 <style>
