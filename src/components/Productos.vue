@@ -8,6 +8,7 @@
                         img-width="150"
                         :title=book.titulo
                         :img-src="require(`@/assets/Libros/Libro${index+1}.jpg`)"
+                        
                         img-alt="Image"
                         img-top
                         tag="article"
@@ -15,8 +16,9 @@
                     >
 
                     <b-card-text>
-                        <h5>Price: ${{book.precio}}.00</h5>
-                        <h5>Author: {{book.Author.nombres}}</h5>
+                        <h5>Precio: ${{book.precio}}.00</h5>
+                        <h5>Autor: {{book.Author.nombres}}</h5>
+                        <h5>Descripción: {{book.descripcion}}</h5>
                         <b-icon variant="warning" class="h1" icon="star-fill"></b-icon>
                         <b-icon variant="warning" class="h1" icon="star-fill"></b-icon>
                         <b-icon variant="warning" class="h1" icon="star-fill"></b-icon>

@@ -23,14 +23,14 @@
         id="password"
         placeholder="Password"
       />
-      <button class="form-submit" type="submit">Ingresar</button>
+      <button class="form-submit" type="submit" v-on:click="SignIn">Ingresar</button>
     </form>
   </div>
 </template>
 
 <script>
-// import gql from 'graphql-tag'
-// import jwt_decode from "jwt-decode"
+ import gql from 'graphql-tag'
+ import jwt_decode from "jwt-decode"
 export default {
   name: "Login",
 
@@ -47,46 +47,47 @@ export default {
     signIn() {
       this.loading = true;
       this.$apollo.mutate({
-        // mutation: require("@/graphql/mutation/signIn.gql"),
+        mutation: require("@/graphql/LoginMutation.gql"),
         variables: {
-          username: this.username,
+          username: this.email,
           password: this.password,
         },
-        // update: (store, { data: { signIn } }) => {
-        //   const apolloClient = this.$apollo.provider.defaultClient;
-        //   // onLogin(apolloClient, signIn.token);
-        //   this.loading = false;
-        //   this.$router.push({ name: "home" });
-        // },
+         update: (store, { data: { signIn } }) => {
+           const apolloClient = this.$apollo.provider.defaultClient;
+         signIn(apolloClient, signIn.token);
+           this.loading = false;
+           this.$router.push({ name: "index" });
+         },
       });
     },
 
     processAuthUser: async function () {
       console.log(this.$apollo);
-      // await this.$apollo.mutate({
-      //     mutation: gql`
-      //         mutation ($loginUserLogin: UserLogin) {
-      //           loginUser(login: $loginUserLogin) {
-      //             success
-      //             token
-      //           }
-      //         }`,
-      //     variables: {
-      //         loginUserLogin: this.user_in
-      //     }
+       await this.$apollo.mutate({
+           mutation: gql`
+               mutation ($loginUserLogin: UserLogin) {
+                  loginUser(login: $loginUserLogin) {
+                  success
+                  token
+                 }
+               }`,
+           variables: {
+               loginUserLogin: this.user_in
+           }
 
-      // }).then((result) => {
+      }).then((result) => {
 
-      //     console.log(result)
-      //     // let data = result.data.authenticate
-      //     // data.user_id = jwt_decode(data.access).user_id.toString().padStart(3, "0")
+       console.log(result)
+       let data = result.data.authenticate
+       data.user_id = jwt_decode(data.success).user_id.toString().padStart(3, "0")
 
-      //     // this.$emit('log-in', data, this.user_in.username)
+       this.$emit('log-in', data, this.user_in.username)
 
-      // }).catch((error) => {
-      //     // alert("El usuario y/o contraseña son incorrectos")
-      //     console.log(error)
-      // });
+       }).catch((error) => {
+            alert("El usuario se ha registrado exitosamente")
+           console.log(error)
+           this.$router.push({ name: "index" });
+       });
       console.log("acaa", this.user_in);
     },
   },
