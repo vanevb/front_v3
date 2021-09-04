@@ -33,14 +33,18 @@
       >|
     </p>
     <router-view></router-view>
-    <foot />
+    <Foot />
   </div>
 </template>
 
 <script>
 // import gql from "graphql-tag";
+import Foot from './components/Footerbooks.vue'
 export default {
   name: "App",
+  components:{
+    Foot
+  },
   data: function () {
     return {
       is_auth: false,

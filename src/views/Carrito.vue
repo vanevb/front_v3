@@ -102,7 +102,7 @@
                     </li>
                     <hr>
                 </ul>
-                <h2 class="my-4 text-center">Total: ${{ticket.total}}.00</h2>
+                <h2 class="my-4 text-center">Total: ${{total}}.00</h2>
 
 
             </b-modal>
@@ -128,7 +128,6 @@ export default {
         return{
             ticket:{
                 products: null,
-                total: 0
             },
             counter: 0,
         cart:[],
@@ -185,11 +184,15 @@ export default {
     },
     computed:{
         total(){
+            console.log(this.cart)
             let t=0;
-            for (let index = 0; index<this.cart.length;index++){
-                t+= this.cart[index].price*this.cart[index].quantity
+            this.cart.forEach(prod=>{
+                t+=prod.precio;
+            })
+            // for (let index = 0; index<this.cart.length;index++){
+            //     t+= this.cart[index].precio*this.cart[index].quantity
 
-            }
+            // }
             return t
         }
     },
