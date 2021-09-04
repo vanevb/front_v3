@@ -31,6 +31,8 @@
 <script>
 // import gql from 'graphql-tag'
 // import jwt_decode from "jwt-decode"
+import loginMutation from '../graphql/LoginMutation.gql';
+// import { onLogin} from '../vue-apollo';
 export default {
   name: "Login",
 
@@ -62,31 +64,21 @@ export default {
     },
 
     processAuthUser: async function () {
-      console.log(this.$apollo);
-      // await this.$apollo.mutate({
-      //     mutation: gql`
-      //         mutation ($loginUserLogin: UserLogin) {
-      //           loginUser(login: $loginUserLogin) {
-      //             success
-      //             token
-      //           }
-      //         }`,
-      //     variables: {
-      //         loginUserLogin: this.user_in
-      //     }
+      await this.$apollo.mutate({
+          mutation:loginMutation,
+          variables: {
+              loginUserLogin: this.user_in
+          }
 
-      // }).then((result) => {
+      }).then((result) => {
+          // onLogin(this.$apollo,result.data.loginUser.token);
+          console.log(result)
+          alert("Sesión iniciada correctamente");
+          this.$router.push({ name: 'index' })
 
-      //     console.log(result)
-      //     // let data = result.data.authenticate
-      //     // data.user_id = jwt_decode(data.access).user_id.toString().padStart(3, "0")
-
-      //     // this.$emit('log-in', data, this.user_in.username)
-
-      // }).catch((error) => {
-      //     // alert("El usuario y/o contraseña son incorrectos")
-      //     console.log(error)
-      // });
+      }).catch((error) => {
+          alert(error)
+      });
       console.log("acaa", this.user_in);
     },
   },

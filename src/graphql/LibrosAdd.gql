@@ -1,0 +1,12 @@
+fragment libros on libros  {
+    titulo
+    ano
+    descripcion
+    precio
+    cantidad
+    imagen 
+    AuthorId
+    CategoryId
+    EditorialId
+  }
+}
