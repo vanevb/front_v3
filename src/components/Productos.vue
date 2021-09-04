@@ -2,7 +2,7 @@
     <div>
         <b-container>
             <b-row>
-                <b-col cols="3" v-for="(book,index) in librossBybook.Libros" :key="index">
+                <b-col cols="3" v-for="(book,index) in books" :key="index">
                     <b-card
                         img-height="400"
                         img-width="150"
@@ -16,6 +16,7 @@
 
                     <b-card-text>
                         <h5>Price: ${{book.precio}}.00</h5>
+                        <h5>Author: {{book.Author.nombres}}</h5>
                         <b-icon variant="warning" class="h1" icon="star-fill"></b-icon>
                         <b-icon variant="warning" class="h1" icon="star-fill"></b-icon>
                         <b-icon variant="warning" class="h1" icon="star-fill"></b-icon>
@@ -45,8 +46,14 @@ export default {
             query: require('@/graphql/librosbybook.gql')
         }      
     },
+    watch: {
+        librossBybook() {
+            this.books = this.librossBybook.Libros.map(libro => ({ ...libro, cart:false }))
+        }        
+    },
     data(){
         return{
+            books: [],
             librossBybook: {
                 Libros: []
             }         
