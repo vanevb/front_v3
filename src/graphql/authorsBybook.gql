@@ -1,0 +1,8 @@
+query Query {
+  authorsBybook {
+    Author1 {
+      nombres
+      id
+    }
+  }
+}

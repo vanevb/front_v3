@@ -1,0 +1,8 @@
+query Query {
+  editorialsBybook {
+    Editorial1 {
+      nombre
+      id
+    }
+  }
+}

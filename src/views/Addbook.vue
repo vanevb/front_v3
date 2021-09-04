@@ -48,8 +48,19 @@
 
 <script>
 // import axios from "axios";
-import CreateBook from '../graphql/RegisterLibrosMutation.gql';
+// import CreateBook from '../graphql/RegisterLibrosMutation.gql';
 export default {
+    apollo: {
+        authorsBybook: {
+            query: require('@/graphql/authorsBybook.gql')
+        },
+        categoriasBybook:{
+            query:require('@/graphql/categoriasBybook.gql')
+        },
+        editorialsBybook:{
+            query:require('@/graphql/editorialsBybook.gql')
+        }      
+    },
     name: "Create",
     data: function(){
         return{
@@ -60,6 +71,16 @@ export default {
                 precio:"",
                 cantidad:0,
                 imagen:"",
+                authorsBybook:
+                {
+                    Author1:[{}]
+                },
+                categoriasBybook:{
+                    Categoria1:[{}]
+                },
+                editorialsBybook:{
+                    Editorial1:[{}]
+                },
                 AuthorId:1,
                 CategoryId:1,
                 EditorialId:1
@@ -70,28 +91,29 @@ export default {
 
     methods:{
         RegisterUser:async function(){
-            await this.$apollo.mutate({
-                mutation:CreateBook,
-                variables: {
-                    registerLibrosLibros: {
-                        titulo:this.bookin.titulo,
-                        ano:parseInt(this.bookin.ano),
-                        descripcion:this.bookin.descripcion,
-                        precio:parseInt(this.bookin.precio),
-                        cantidad:parseInt(this.bookin.cantidad),
-                        imagen:this.bookin.imagen,
-                        AuthorId:this.bookin.AuthorId,
-                        CategoryId:this.bookin.CategoryId,
-                        EditorialId:this.bookin.EditorialId
-                    }
-                }
-            }).then((result) => {
-                console.log(result)
-                alert("Libro creado correctamente");
-                this.$router.push({ name: 'index' })
-            }).catch((error) => {
-                alert(error);
-            });
+            console.log(this.bookin)
+            // await this.$apollo.mutate({
+            //     mutation:CreateBook,
+            //     variables: {
+            //         registerLibrosLibros: {
+            //             titulo:this.bookin.titulo,
+            //             ano:parseInt(this.bookin.ano),
+            //             descripcion:this.bookin.descripcion,
+            //             precio:parseInt(this.bookin.precio),
+            //             cantidad:parseInt(this.bookin.cantidad),
+            //             imagen:this.bookin.imagen,
+            //             AuthorId:this.bookin.AuthorId,
+            //             CategoryId:this.bookin.CategoryId,
+            //             EditorialId:this.bookin.EditorialId
+            //         }
+            //     }
+            // }).then((result) => {
+            //     console.log(result)
+            //     alert("Libro creado correctamente");
+            //     this.$router.push({ name: 'index' })
+            // }).catch((error) => {
+            //     alert(error);
+            // });
         },
 
         Volver: function(){
